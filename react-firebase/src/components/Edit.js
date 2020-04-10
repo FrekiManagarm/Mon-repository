@@ -7,23 +7,31 @@ class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: '',
-      title: '',
-      description: '',
-      author: ''
+        key: "",
+        RGB: Boolean,
+        alim_inclus: Boolean,
+        couleur: "",
+        façade_latérale: "",
+        format: "",
+        nom: "",
+        ventilateur: ""
     };
   }
 
   componentDidMount() {
-    const ref = firebase.firestore().collection('boards').doc(this.props.match.params.id);
+    const ref = firebase.firestore().collection('Case').doc(this.props.match.params.id);
     ref.get().then((doc) => {
       if (doc.exists) {
-        const board = doc.data();
+        const Case = doc.data();
         this.setState({
           key: doc.id,
-          title: board.title,
-          description: board.description,
-          author: board.author
+          RGB: Case.RGB,
+          alim_inclus: Case.alim_inclus,
+          couleur: Case.couleur,
+          façade_latérale: Case.façade_latérale,
+          format: Case.format,
+          nom: Case.nom,
+          ventilateur: Case.ventilateur
         });
       } else {
         console.log("No such document!");
@@ -34,7 +42,7 @@ class Edit extends Component {
   onChange = (e) => {
     const state = this.state
     state[e.target.name] = e.target.value;
-    this.setState({board:state});
+    this.setState({Case:state});
   }
 
   onSubmit = (e) => {
@@ -44,15 +52,23 @@ class Edit extends Component {
 
     const updateRef = firebase.firestore().collection('boards').doc(this.state.key);
     updateRef.set({
-      title,
-      description,
-      author
+      RGB,
+      alim_inclus,
+      couleur,
+      façade_latérale,
+      format,
+      nom,
+      ventilateur
     }).then((docRef) => {
       this.setState({
-        key: '',
-        title: '',
-        description: '',
-        author: ''
+        key: "",
+        RGB: Boolean,
+        alim_inclus: Boolean,
+        couleur: "",
+        façade_latérale: "",
+        format: "",
+        nom: "",
+        ventilateur: ""
       });
       this.props.history.push("/show/"+this.props.match.params.id)
     })
@@ -71,19 +87,58 @@ class Edit extends Component {
             </h3>
           </div>
           <div class="panel-body">
-            <h4><Link to={`/show/${this.state.key}`} class="btn btn-primary">Board List</Link></h4>
+            <h4><Link to={`/show/${this.state.key}`} class="btn btn-primary">Case List</Link></h4>
             <form onSubmit={this.onSubmit}>
               <div class="form-group">
-                <label for="title">Title:</label>
-                <input type="text" class="form-control" name="title" value={this.state.title} onChange={this.onChange} placeholder="Title" />
+                <label for="RGB">RGB:</label>
+                <select type="Boolean" class="form-control" name="RGB" value={this.state.RGB} onChange={this.onChange} placeholder="RGB">
+                  <option value="true">true</option>
+                  <option value="false">false</option>
+                </select> 
               </div>
               <div class="form-group">
-                <label for="description">Description:</label>
-                <input type="text" class="form-control" name="description" value={this.state.description} onChange={this.onChange} placeholder="Description" />
+                <label for="alim_inclus">Alim inclus:</label>
+                <select type="Boolean" class="form-control" name="alim_inclus" value={this.state.alim_inclus} onChange={this.onChange} placeholder="alim_inclus">
+                  <option value="true">true</option>
+                  <option value="false">false</option>
+                </select>
               </div>
               <div class="form-group">
-                <label for="author">Author:</label>
-                <input type="text" class="form-control" name="author" value={this.state.author} onChange={this.onChange} placeholder="Author" />
+                <label for="façade_latérale">Façade Latérale:</label>
+                <select type="text" class="form-control" name="couleur" value={this.state.façade_latérale} onChange={this.onChange} placeholder="façade_latérale">
+                  <option value="Plexiglass">Plexiglass</option>
+                  <option value="Verre Trempé">Verre Trempé</option>
+                  <option value="Null">Null</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="couleur">Couleur:</label>
+                <select type="text" class="form-control" name="couleur" value={this.state.couleur} onChange={this.onChange} placeholder="couleur">
+                  <option value="Noir, Transparent">Noir, Transparent</option>
+                  <option value="Noir, Blanc, Transparent">Noir, Blanc, Transparent</option>
+                  <option value="Blanc, Transparent">Blanc, Transparent</option>
+                  <option value="Rouge, Blanc, Transparent">Rouge, Blanc, Transparent</option>
+                  <option value="Noir">Noir</option>
+                  <option value="Blanc">Blanc</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="format">Format:</label>
+                <select type="text" class="form-control" name="format" value={this.state.format} onChange={this.onChange} placeholder="format">
+                  <option value="Grand-Tour">Grand-Tour</option>
+                  <option value="Moyen-Tour">Moyen-Tour</option>
+                  <option value="Mini-Tour">Mini-Tour</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="nom">Nom:</label>
+                <input type="text" class="form-control" name="nom" value={this.state.nom} onChange={this.onChange} placeholder="nom" cols="50" rows="2"/>
+              </div>
+              <div class="form-group">
+                <label for="ventilateur">Ventilateur:</label>
+                <select type="text" class="form-control" name="ventilateur" value={this.state.ventilateur} onChange={this.onChange} placeholder="ventilateur">
+                  <option value=""></option>
+                </select>
               </div>
               <button type="submit" class="btn btn-success">Submit</button>
             </form>

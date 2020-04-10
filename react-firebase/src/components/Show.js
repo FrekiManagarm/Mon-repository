@@ -7,17 +7,24 @@ class Show extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: {},
-      key: ''
+      Case: {},
+      key: '',
+      RGB: Boolean,
+      alim_inclus: Boolean,
+      couleur: '',
+      façade_latérale: '',
+      format: '',
+      nom: '',
+      ventilateur: ''
     };
   }
 
   componentDidMount() {
-    const ref = firebase.firestore().collection('boards').doc(this.props.match.params.id);
+    const ref = firebase.firestore().collection('Case').doc(this.props.match.params.id);
     ref.get().then((doc) => {
       if (doc.exists) {
         this.setState({
-          board: doc.data(),
+          Case: doc.data(),
           key: doc.id,
           isLoading: false
         });
@@ -28,7 +35,7 @@ class Show extends Component {
   }
 
   delete(id){
-    firebase.firestore().collection('boards').doc(id).delete().then(() => {
+    firebase.firestore().collection('Case').doc(id).delete().then(() => {
       console.log("Document successfully deleted!");
       this.props.history.push("/")
     }).catch((error) => {
@@ -41,17 +48,27 @@ class Show extends Component {
       <div class="container">
         <div class="panel panel-default">
           <div class="panel-heading">
-          <h4><Link to="/">Board List</Link></h4>
+          <h4><Link to="/">Case List</Link></h4>
             <h3 class="panel-title">
-              {this.state.board.title}
+              {this.state.Case.title}
             </h3>
           </div>
           <div class="panel-body">
             <dl>
-              <dt>Description:</dt>
-              <dd>{this.state.board.description}</dd>
-              <dt>Author:</dt>
-              <dd>{this.state.board.author}</dd>
+              <dt>RGB:</dt>
+              <dd>{this.state.Case.RGB}</dd>
+              <dt>Alim inclus</dt>
+              <dd>{this.state.Case.alim_inclus}</dd>
+              <dt>Couleur</dt>
+              <dd>{this.state.Case.couleur}</dd>
+              <dt>Façade Latérale</dt>
+              <dd>{this.state.Case.façade_latérale}</dd>
+              <dt>Format</dt>
+              <dd>{this.state.Case.format}</dd>
+              <dt>Nom</dt>
+              <dd>{this.state.Case.nom}</dd>
+              <dt>Ventilateur</dt>
+              <dd>{this.state.Case.ventilateur}</dd>
             </dl>
             <Link to={`/edit/${this.state.key}`} class="btn btn-success">Edit</Link>&nbsp;
             <button onClick={this.delete.bind(this, this.state.key)} class="btn btn-danger">Delete</button>
