@@ -48,9 +48,9 @@ class Edit extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { title, description, author } = this.state;
+    const { RGB, alim_inclus, couleur, façade_latérale, format, nom, ventilateur } = this.state;
 
-    const updateRef = firebase.firestore().collection('boards').doc(this.state.key);
+    const updateRef = firebase.firestore().collection('Case').doc(this.state.key);
     updateRef.set({
       RGB,
       alim_inclus,

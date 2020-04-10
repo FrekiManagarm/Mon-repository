@@ -6,27 +6,32 @@ import firebase from './Firebase';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.ref = firebase.firestore().collection('boards');
+    this.ref = firebase.firestore().collection('Case');
     this.unsubscribe = null;
     this.state = {
-      boards: []
+      Case: []
     };
   }
 
   onCollectionUpdate = (querySnapshot) => {
-    const boards = [];
+    const Case = [];
     querySnapshot.forEach((doc) => {
-      const { title, description, author } = doc.data();
-      boards.push({
+      const { title, RGB, alim_inclus, couleur, façade_latérale, format, nom, ventilateur } = doc.data();
+      Case.push({
         key: doc.id,
-        doc, // DocumentSnapshot
+        doc, 
         title,
-        description,
-        author,
+        RGB: Boolean,
+        alim_inclus: Boolean,
+        couleur,
+        façade_latérale,
+        format,
+        nom,
+        ventilateur
       });
     });
     this.setState({
-      boards
+      Case
    });
   }
 
@@ -40,7 +45,7 @@ class App extends Component {
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              BOARD LIST
+              CASE LIST
             </h3>
           </div>
           <div class="panel-body">
@@ -48,17 +53,26 @@ class App extends Component {
             <table class="table table-stripe">
               <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Author</th>
+                  <th>Nom</th>
+                  <th>RGB</th>
+                  <th>Alim inclus</th>
+                  <th>Couleur</th>
+                  <th>Façade Latérale</th>
+                  <th>Format</th>
+                  <th>Ventilateur</th>
                 </tr>
               </thead>
               <tbody>
-                {this.state.boards.map(board =>
+                {this.state.Case.map(Case =>
                   <tr>
-                    <td><Link to={`/show/${board.key}`}>{board.title}</Link></td>
-                    <td>{board.description}</td>
-                    <td>{board.author}</td>
+                    <td><Link to={`/show/${Case.key}`}>{Case.title}</Link></td>
+                    <td>{Case.nom}</td>
+                    <td>{Case.RGB}</td>
+                    <td>{Case.alim_inclus}</td>
+                    <td>{Case.couleur}</td>
+                    <td>{Case.façade_latérale}</td>
+                    <td>{Case.format}</td>
+                    <td></td>
                   </tr>
                 )}
               </tbody>
