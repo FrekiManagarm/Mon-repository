@@ -16,15 +16,14 @@ class App extends Component {
   onCollectionUpdate = (querySnapshot) => {
     const Case = [];
     querySnapshot.forEach((doc) => {
-      const { title, RGB, alim_inclus, couleur, façade_latérale, format, nom, ventilateur } = doc.data();
+      const { RGB, alim, couleur, façade, format, nom, ventilateur } = doc.data();
       Case.push({
         key: doc.id,
         doc, 
-        title,
-        RGB: Boolean,
-        alim_inclus: Boolean,
+        RGB,
+        alim,
         couleur,
-        façade_latérale,
+        façade,
         format,
         nom,
         ventilateur
@@ -41,16 +40,16 @@ class App extends Component {
 
   render() {
     return (
-      <div class="container">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
+      <div className="container">
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h3 className="panel-title">
               CASE LIST
             </h3>
           </div>
-          <div class="panel-body">
-            <h4><Link to="/create">Add Board</Link></h4>
-            <table class="table table-stripe">
+          <div className="panel-body">
+            <h4><Link to="./components/Create.js">Add Board</Link></h4>
+            <table className="table table-stripe">
               <thead>
                 <tr>
                   <th>Nom</th>
@@ -60,19 +59,20 @@ class App extends Component {
                   <th>Façade Latérale</th>
                   <th>Format</th>
                   <th>Ventilateur</th>
+                  <th>key</th>
                 </tr>
               </thead>
               <tbody>
                 {this.state.Case.map(Case =>
                   <tr>
-                    <td><Link to={`/show/${Case.key}`}>{Case.title}</Link></td>
-                    <td>{Case.nom}</td>
+                    <td><Link to={`./components/Show.js/${Case.key}`}>{Case.nom}</Link></td>
                     <td>{Case.RGB}</td>
-                    <td>{Case.alim_inclus}</td>
+                    <td>{Case.alim}</td>
                     <td>{Case.couleur}</td>
-                    <td>{Case.façade_latérale}</td>
+                    <td>{Case.façade}</td>
                     <td>{Case.format}</td>
-                    <td></td>
+                    <td>{Case.ventilateur}</td>
+                    <td>{Case.key}</td>
                   </tr>
                 )}
               </tbody>

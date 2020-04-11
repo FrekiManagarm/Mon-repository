@@ -1,8 +1,6 @@
 import * as firebase from 'firebase';
 import firestore from 'firebase/firestore';
 
-const settings = {timestampsInSnapshots: true};
-
 var FirebaseConfig = {
     apiKey: "AIzaSyAJDdWdPSXRxTukWUhYqrLh44HqBCXl4F4",
     authDomain: "hardware-web.firebaseapp.com",
@@ -16,7 +14,5 @@ var FirebaseConfig = {
   if (firebase.apps.length === 0) {
     firebase.initializeApp(FirebaseConfig);
   }
-
-firebase.firestore().settings(settings);
 
 export default firebase;

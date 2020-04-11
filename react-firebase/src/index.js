@@ -12,10 +12,10 @@ import Show from './components/Show';
 ReactDOM.render(
   <Router>
       <div>
-        <Route exact path='/' component={App} />
-        <Route path='/edit/:id' component={Edit} />
-        <Route path='/create' component={Create} />
-        <Route path='/show/:id' component={Show} />
+        <Route exact path='/'><App/></Route>
+        <Route path='/Edit/:id'><Edit/></Route>
+        <Route path='/Create'><Create/></Route>
+        <Route path='/Show/:id'><Show/></Route>
       </div>
   </Router>,
   document.getElementById('root')

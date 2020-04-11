@@ -9,18 +9,12 @@ class Show extends Component {
     this.state = {
       Case: {},
       key: '',
-      RGB: Boolean,
-      alim_inclus: Boolean,
-      couleur: '',
-      façade_latérale: '',
-      format: '',
-      nom: '',
-      ventilateur: ''
     };
   }
 
   componentDidMount() {
-    const ref = firebase.firestore().collection('Case').doc(this.props.match.params.id);
+    const ref = firebase.firestore().collection('Case').doc(this.props.match.params);
+    console.log(this.props.params.id);
     ref.get().then((doc) => {
       if (doc.exists) {
         this.setState({
@@ -55,22 +49,23 @@ class Show extends Component {
           </div>
           <div class="panel-body">
             <dl>
+              <dt>Nom</dt>
+              <dd>{this.state.Case.nom}</dd>
               <dt>RGB:</dt>
               <dd>{this.state.Case.RGB}</dd>
               <dt>Alim inclus</dt>
-              <dd>{this.state.Case.alim_inclus}</dd>
+              <dd>{this.state.Case.alim}</dd>
               <dt>Couleur</dt>
               <dd>{this.state.Case.couleur}</dd>
               <dt>Façade Latérale</dt>
-              <dd>{this.state.Case.façade_latérale}</dd>
+              <dd>{this.state.Case.façade}</dd>
               <dt>Format</dt>
               <dd>{this.state.Case.format}</dd>
-              <dt>Nom</dt>
-              <dd>{this.state.Case.nom}</dd>
+              
               <dt>Ventilateur</dt>
               <dd>{this.state.Case.ventilateur}</dd>
             </dl>
-            <Link to={`/edit/${this.state.key}`} class="btn btn-success">Edit</Link>&nbsp;
+            <button><Link to={`./Edit.js/${this.state.key}`} class="btn btn-success">Edit</Link>&nbsp;</button>
             <button onClick={this.delete.bind(this, this.state.key)} class="btn btn-danger">Delete</button>
           </div>
         </div>

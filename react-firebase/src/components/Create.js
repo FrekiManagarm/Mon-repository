@@ -9,8 +9,8 @@ class Create extends Component {
     super();
     this.ref = firebase.firestore().collection("Case");
     this.state = {
-        RGB: Boolean,
-        alim_inclus: Boolean,
+        RGB: "",
+        alim_inclus: "",
         couleur: "",
         façade_latérale: "",
         format: "",
@@ -39,10 +39,10 @@ class Create extends Component {
       ventilateur
     }).then((docRef) => {
       this.setState({
-        RGB: Boolean,
-        alim_inclus: Boolean,
+        RGB: "",
+        alim: "",
         couleur: '',
-        façade_latérale: '',
+        façade: '',
         format: '',
         nom: '',
         ventilateur: ''
@@ -55,77 +55,47 @@ class Create extends Component {
   }
 
   render() {
-    const { RGB, alim_inclus, couleur, façade_latérale, format, nom, ventilateur } = this.state;
+    const { RGB, alim, couleur, façade, format, nom, ventilateur } = this.state;
     return (
-      <div class="container">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">
+      <div className="container">
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <h3 className="panel-title">
               Ajouter un composant
             </h3>
           </div>
-          <div class="panel-body">
+          <div className="panel-body">
             <h4><Link to="/" class="btn btn-primary">Liste des composants</Link></h4>
             <form onSubmit={this.onSubmit}>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="RGB">RGB</label>
-                <select type="Boolean" class="form-control" name="RGB" value={RGB} onChange={this.onChange} placeholder="RGB">{RGB}
-                  <option value="true">true</option>
-                  <option value="false">false</option>
-                </select>
+                <input type="Boolean" className="form-control" name="RGB" onChange={this.onChange} placeholder="RGB">{RGB}</input>
               </div>
-              <div class="form-group">
-                <label for="alim_inclus">Alim inclus</label>
-                <select type="Boolean" class="form-control" name="alim_inclus" onChange={this.onChange} placeholder="alim_inclus" cols="50" rows="2">{alim_inclus}
-                    <option value="true">true</option>
-                    <option value="false">false</option>
-                </select>
+              <div className="form-group">
+                <label for="alim">Alim inclus</label>
+                <input type="Boolean" className="form-control" name="alim" onChange={this.onChange} placeholder="alim" cols="50" rows="2">{alim}</input>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="couleur">Couleur</label>
-                <select type="text" class="form-control" name="couleur" value={couleur} onChange={this.onChange} placeholder="couleur" cols="50" rows="2">{couleur}
-                  <option value="Noir, Transparent">Noir, Transparent</option>
-                  <option value="Noir, Blanc, Transparent">Noir, Blanc, Transparent</option>
-                  <option value="Blanc, Transparent">Blanc, Transparent</option>
-                  <option value="Rouge, Blanc, Transparent">Rouge, Blanc, Transparent</option>
-                  <option value="Noir">Noir</option>
-                  <option value="Blanc">Blanc</option>
-                </select>
+                <input type="text" className="form-control" name="couleur" onChange={this.onChange} placeholder="couleur" cols="50" rows="2">{couleur}</input>
               </div>
-              <div class="form-group">
-                <label for="façade_latérale">Façade Latérale</label>
-                <select type="text" class="form-control" name="façade_latérale" onChange={this.onChange} placeholder="façade_latérale" cols="50" rows="2">{façade_latérale}
-                    <option value="Plexiglass">Plexiglass</option>
-                    <option value="Verre trempé">Verre trempé</option>
-                    <option value="Null">Null</option>
-                </select>
+              <div className="form-group">
+                <label for="façade">Façade Latérale</label>
+                <input type="text" className="form-control" name="façade" onChange={this.onChange} placeholder="façade" cols="50" rows="2">{façade}</input>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="format">Format</label>
-                <select type="text" class="form-control" name="format" onChange={this.onChange} placeholder="format" cols="50" rows="2">{format}
-                  <option value="Grand-Tour">Grand-Tour</option>
-                  <option value="Moyen-Tour">Moyen-Tour</option>
-                  <option value="Mini-Tour">Mini-Tour</option>
-                </select>
+                <input type="text" className="form-control" name="format" onChange={this.onChange} placeholder="format" cols="50" rows="2">{format}</input>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="nom">Nom:</label>
-                <input type="text" class="form-control" name="nom" onChange={this.onChange} placeholder="nom" cols="50" rows="2">{nom}</input>
+                <input type="text" className="form-control" name="nom" onChange={this.onChange} placeholder="nom" cols="50" rows="2">{nom}</input>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="ventilateur">Ventilateur:</label>
-                <select type="text" class="form-control" name="ventilateur" onChange={this.onChange} placeholder="ventilateur" cols="50" rows="2">{ventilateur}
-                  <option value="x2 normal">x2 normal</option>
-                  <option value="x3 RGB">x3 RGB</option>
-                  <option value="x3 normal">x3 normal</option>
-                  <option value="x2 RGB">x2 RGB</option>
-                  <option value="x4 normal">x4 normal</option>
-                  <option value="x4 RGB">x4 RGB</option>
-                  <option value="x1 RGB">x1 RGB</option>
-                  <option value="x1 normal">x1 normal</option>
-                </select>
+                <input type="text" className="form-control" name="ventilateur" onChange={this.onChange} placeholder="ventilateur" cols="50" rows="2">{ventilateur}</input>
               </div>
-              <button type="submit" class="btn btn-success">Submit</button>
+              <button type="submit" className="btn btn-success">Submit</button>
             </form>
           </div>
         </div>
